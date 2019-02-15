@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Route, Link} from "react-router-dom";
+import {NavLink, Route, Switch} from "react-router-dom";
 
 import './Blog.css'
 
@@ -10,19 +10,21 @@ class Blog extends Component {
     render() {
         return (
             <div className="Blog">
-                    <header>
-                        <nav>
-                            <ul>
-                                <li><Link to="/">Home</Link></li>
-                                <li><Link to={{
-                                    pathname: "/new-post",
-                                    hash: '#submit'
-                                }}>New Post</Link></li>
-                            </ul>
-                        </nav>
-                    </header>
-                <Route path="/" exact component={Posts} />
-                <Route path="/new-post" component={NewPost} />
+                <header>
+                    <nav>
+                        <ul>
+                            <li><NavLink to="/posts" exact>Posts</NavLink></li>
+                            <li><NavLink to={{
+                                pathname: "/new-post",
+                                hash: '#submit'
+                            }} exact>New Post</NavLink></li>
+                        </ul>
+                    </nav>
+                </header>
+                <Switch>
+                    <Route path="/new-post" exact component={NewPost}/>
+                    <Route path="/posts" component={Posts}/>
+                </Switch>
             </div>
         );
     }
