@@ -1,10 +1,15 @@
 import React, {Component} from 'react';
-import {NavLink, Route, Switch} from "react-router-dom";
+import {NavLink, Route, Switch, Redirect} from "react-router-dom";
 
 import './Blog.css'
 
 import Posts from './Posts/Posts';
-import NewPost from './NewPost/NewPost';
+//import NewPost from './NewPost/NewPost';
+import asyncComponent from '../../hoc/asyncComponent';
+
+const AsyncNewPost = asyncComponent(() => {
+    return import('./NewPost/NewPost');
+});
 
 class Blog extends Component {
     render() {
@@ -22,8 +27,9 @@ class Blog extends Component {
                     </nav>
                 </header>
                 <Switch>
-                    <Route path="/new-post" exact component={NewPost}/>
+                    <Route path="/new-post" exact component={AsyncNewPost}/>
                     <Route path="/posts" component={Posts}/>
+                    <Redirect from="/" to="/posts" />
                 </Switch>
             </div>
         );
